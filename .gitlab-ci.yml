@@ -13,7 +13,6 @@ setup:
   stage: setup
   image: node:${NODE_VERSION}
   script:
-    - cp .env.test .env
     - npm install
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
