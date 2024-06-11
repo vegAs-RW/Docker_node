@@ -13,7 +13,7 @@ setup:
   stage: setup
   image: node:${NODE_VERSION}
   script:
-    - npm ci
+    - npm i
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == "develop"'
