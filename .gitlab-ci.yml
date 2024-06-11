@@ -1,0 +1,37 @@
+stages:
+  - setup
+  - test
+
+variables:
+  NODE_VERSION: "21"
+
+default:
+  before_script:
+    - apt-get update && apt-get install -y git curl
+
+setup:
+  stage: setup
+  image: node:${NODE_VERSION}
+  script:
+    - cp .env.test .env
+    - npm install
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+test:
+  stage: test
+  image: node:${NODE_VERSION}
+  script:
+    - npm test
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    reports:
+      junit: junit.xml
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
