@@ -13,7 +13,7 @@ setup:
   stage: setup
   image: node:${NODE_VERSION}
   script:
-    - npm install
+    - npm ci
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == "develop"'
@@ -23,7 +23,11 @@ test:
   stage: test
   image: node:${NODE_VERSION}
   script:
-    - npm test
+    - node -v  # Vérifie la version de Node.js
+    - npm -v   # Vérifie la version de npm
+    - npm ls   # Liste les modules installés
+    - npx jest --version  # Vérifie la version de Jest pour s'assurer qu'il est bien installé
+    - npm test  # Exécute les tests
   artifacts:
     when: always
     paths:
