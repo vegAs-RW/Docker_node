@@ -1,39 +1,13 @@
-stages:
-  - setup
-  - test
-
 variables:
   NODE_VERSION: "21"
 
-default:
-  before_script:
-    - apt-get update && apt-get install -y git curl
-
-setup:
-  stage: setup
+node-tests:
   image: node:${NODE_VERSION}
+  
   script:
-    - npm i
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    - if: '$CI_COMMIT_BRANCH == "develop"'
-    - if: '$CI_COMMIT_BRANCH == "main"'
-
-test:
-  stage: test
-  image: node:${NODE_VERSION}
-  script:
-    - node -v  # Vérifie la version de Node.js
-    - npm -v   # Vérifie la version de npm
-    - npm ls   # Liste les modules installés
-    - npx jest --version  # Vérifie la version de Jest pour s'assurer qu'il est bien installé
-    - npm test  # Exécute les tests
-  artifacts:
-    when: always
-    paths:
-      - coverage/
-    reports:
-      junit: junit.xml
+    - npm install
+    - npm test
+  
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     - if: '$CI_COMMIT_BRANCH == "develop"'
