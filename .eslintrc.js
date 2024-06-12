@@ -10,8 +10,5 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'commonjs'
   },
-  rules: {
-    
-  },
   ignorePatterns: ['node_modules/', 'coverage/', 'tests/']
 }
