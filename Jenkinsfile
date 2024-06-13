@@ -16,13 +16,13 @@ pipeline {
 
         stage('Run Linter') {
             steps {
-                sh 'npm lint'
+                sh 'npm run lint'
             }
         }
 
         stage('Run Script') {
             steps {
-                sh 'npm test'
+                sh 'npm run test'
             }
         }
 
