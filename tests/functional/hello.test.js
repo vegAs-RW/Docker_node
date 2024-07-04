@@ -9,3 +9,12 @@ describe('GET /hello/:name', () => {
     expect(response.text).toEqual('Hello, Bob!')
   })
 })
+
+describe('GET /goodbye/:name', () => {
+  test('It should respond with a goodbye message with the name', async () => {
+    const response = await request(app).get('/goodbye/Bob')
+
+    expect(response.statusCode).toBe(200)
+    expect(response.text).toEqual('Goodbye, Bob!')
+  })
+})
